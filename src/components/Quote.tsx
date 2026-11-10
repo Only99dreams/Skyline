@@ -66,7 +66,7 @@ export function Quote({
     {
       id: "whatsapp",
       label: "WhatsApp",
-      hint: CONTACT.whatsapp ? CONTACT.whatsapp : "Request a chat",
+      hint: CONTACT.phone || CONTACT.whatsapp || "Request a chat",
       icon: MessageCircle,
       href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : null,
       toast:

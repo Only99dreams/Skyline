@@ -7,9 +7,9 @@
  *   email:    "hello@skyline.example"
  */
 export const CONTACT = {
-  phone: "",
-  whatsapp: "",
-  email: "",
+  phone: "+234 703 055 3134",
+  whatsapp: "2347030553134",
+  email: "ogiethompson11@gmail.com",
 };
 
 export const BRAND = {

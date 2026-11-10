@@ -43,9 +43,9 @@ Contact channels live in `src/config.ts`:
 
 ```ts
 export const CONTACT = {
-  phone: "", // display format, e.g. "+254 700 000 000"
-  whatsapp: "", // international format, digits only
-  email: "", // e.g. "hello@example.com"
+  phone: "+234 703 055 3134", // display format
+  whatsapp: "2347030553134", // international format, digits only
+  email: "ogiethompson11@gmail.com",
 };
 ```
 
@@ -62,9 +62,8 @@ export const CONTACT = {
   `src/components/Quote.tsx` with your API call. Update the privacy copy if
   submissions are stored remotely.
 
-The empty contact values are intentional: no phone number, WhatsApp number,
-email address or location has been invented. Fill these in and verify them
-before launch.
+Contact details are configured in `src/config.ts`. Update them there if the
+phone, WhatsApp or email changes, and verify each link before launch.
 
 ## Lookbook and saved looks
 
@@ -180,7 +179,8 @@ they do in the live, scrolling site.
 
 ## Deployment notes
 
-1. Add the real contact details in `src/config.ts`.
+1. Verify the contact details in `src/config.ts` and confirm the call, WhatsApp
+   and email links work.
 2. Replace the concept photography and review the disclaimers.
 3. Run `npm run build` and deploy the generated `dist/` folder to any static host
    (Netlify, Vercel, Cloudflare Pages, GitHub Pages or similar).
@@ -191,5 +191,6 @@ they do in the live, scrolling site.
 
 ## Status
 
-The front end is complete and buildable. Remaining launch dependencies are real
-contact details, approved project photography and a form delivery endpoint.
+The front end is complete and buildable. Contact details are configured; the
+remaining launch dependencies are approved project photography and, if desired,
+a form delivery endpoint.
