@@ -43,7 +43,7 @@ export function Process() {
     <section id="process" className="blueprint bg-bone py-24 text-ink lg:py-32">
       <div className="container-x">
         <SectionIntro
-          index="05"
+          index="06"
           eyebrow="How it works"
           title={
             <>

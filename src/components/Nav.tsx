@@ -109,7 +109,7 @@ export function Nav() {
           </button>
 
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-8">
+            <ul className="flex items-center gap-5 xl:gap-8">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <a

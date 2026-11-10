@@ -9,7 +9,7 @@ export function Principles() {
     <section id="why" className="bg-ink py-24 text-paper lg:py-32">
       <div className="container-x">
         <SectionIntro
-          index="04"
+          index="05"
           eyebrow="Why choose Skyline?"
           title={
             <>

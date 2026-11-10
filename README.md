@@ -66,6 +66,25 @@ The empty contact values are intentional: no phone number, WhatsApp number,
 email address or location has been invented. Fill these in and verify them
 before launch.
 
+## Lookbook and saved looks
+
+The interactive lookbook (`src/components/Showcase.tsx`) sits between Designs and
+Upgrades. It includes:
+
+- Six category filters: Architecture, Smart Homes, Interiors, Furniture,
+  Lighting, and Solar & Water.
+- A dense mosaic gallery with hover treatment and per-look save and enquire
+  actions.
+- A keyboard-accessible lightbox with previous/next navigation, Escape to close,
+  focus trapping, and a caption for each look.
+- A persistent saved-lookbook bar that feeds selected looks into the quote form.
+  Saved looks are included in the WhatsApp/email message and in the demo-mode
+  `skyline:last-quote-request` record.
+
+The lookbook uses concept imagery for inspiration, not completed Skyline
+projects. Replace the files in `public/images/showcase/` and update
+`SHOWCASE_ITEMS` in `src/content.ts` before launch.
+
 ## Content and imagery
 
 All marketing copy comes from the supplied Skyline material. The site does not
@@ -79,13 +98,29 @@ real Skyline work before launch, then:
 
 1. Update the files in `public/images/` (or change the paths in `src/content.ts`).
 2. Review the alt text for accuracy.
-3. Remove or update the concept-imagery notes in `About`, `Designs` and `Footer`.
+3. Remove or update the concept-imagery notes in `About`, `Designs`, `Showcase`
+   and `Footer`.
 4. Keep a record of the photographer and source URL for each replacement image.
 
 The Unsplash License does not require attribution, but the current files are
 placeholders and should not be presented as Skyline projects. The supplied logo
 is `public/logo.png`; `public/skyline-original.jpg` is the original reference
 artwork.
+
+### Lookbook image credits
+
+The 19 lookbook images in `public/images/showcase/` are temporary concept
+imagery. Eighteen are sourced from Unsplash. One is used under a Creative
+Commons licence:
+
+- `lighting-chandelier.jpg` — “The Mardan Palace lobby” by **atkinson000** on
+  Flickr, licensed under
+  [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). The credit is also
+  shown in the lookbook lightbox.
+
+Replace these images with licensed photography of real Skyline work before
+launch, update the alt text and credit fields, and keep a record of each new
+source.
 
 ## Design system
 
@@ -103,16 +138,18 @@ for labels and metadata.
 
 The interface includes a skip link, keyboard-trapped mobile menu, visible focus
 states, reduced-motion handling, labelled form fields and honest empty states.
-It has been audited with axe for WCAG A/AA at 1440, 1024, 390 and 320 pixels with
-zero reported violations. That is a point-in-time automated check, not a formal
-accessibility certification.
+The original sections were audited with axe for WCAG A/AA at 1440, 1024, 390 and
+320 pixels with zero reported violations. The lookbook follows the same patterns
+(keyboard lightbox with a focus trap, labelled controls, reduced-motion
+fallbacks) but should be included in the next full audit. That is a
+point-in-time automated check, not a formal accessibility certification.
 
 ## Project structure
 
 ```text
 .
 ├── public/
-│   ├── images/              # Temporary concept photography
+│   ├── images/              # Temporary concept photography (incl. showcase/)
 │   ├── logo.png             # Supplied Skyline logo
 │   └── skyline-original.jpg # Supplied reference artwork
 ├── src/
@@ -120,7 +157,7 @@ accessibility certification.
 │   ├── lib/                 # Smooth-scroll and class helpers
 │   ├── App.tsx              # Page composition and shared quote state
 │   ├── config.ts            # Contact details
-│   ├── content.ts           # Copy, designs, upgrades and process data
+│   ├── content.ts           # Copy, designs, lookbook, upgrades and process data
 │   ├── index.css            # Tailwind theme and global styles
 │   └── main.tsx
 ├── archive/v1-static/       # Original static site, retained for reference

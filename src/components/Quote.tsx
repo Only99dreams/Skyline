@@ -3,13 +3,15 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowUpRight,
   Asterisk,
+  BookmarkCheck,
   Check,
   Mail,
   MessageCircle,
   Phone,
+  Trash2,
 } from "lucide-react";
 import { CONTACT } from "../config";
-import { UPGRADES } from "../content";
+import { INTEREST_OPTIONS, SHOWCASE_ITEMS, UPGRADES } from "../content";
 import { scrollToId } from "../lib/lenis";
 import { cn } from "../lib/utils";
 import { useToast } from "./Toast";
@@ -18,6 +20,8 @@ import { Reveal } from "./Reveal";
 type QuoteProps = {
   selected: string[];
   onToggle: (id: string) => void;
+  looks: string[];
+  onClearLooks: () => void;
   interest: string;
   onInterestChange: (value: string) => void;
 };
@@ -34,6 +38,8 @@ type Channel = {
 export function Quote({
   selected,
   onToggle,
+  looks,
+  onClearLooks,
   interest,
   onInterestChange,
 }: QuoteProps) {
@@ -45,6 +51,7 @@ export function Quote({
 
   const phoneDigits = CONTACT.phone.replace(/[^\d+]/g, "");
   const whatsappDigits = CONTACT.whatsapp.replace(/\D/g, "");
+  const savedLooks = SHOWCASE_ITEMS.filter((item) => looks.includes(item.id));
 
   const channels: Channel[] = [
     {
@@ -85,6 +92,7 @@ export function Quote({
     const chosenUpgrades = UPGRADES.filter((upgrade) =>
       selected.includes(upgrade.id),
     ).map((upgrade) => upgrade.short);
+    const chosenLooks = savedLooks.map((item) => item.title);
 
     const request = {
       name: String(data.get("name") ?? ""),
@@ -93,6 +101,7 @@ export function Quote({
       location: String(data.get("location") ?? ""),
       interest,
       upgrades: chosenUpgrades,
+      looks: chosenLooks,
       message: String(data.get("message") ?? ""),
     };
 
@@ -104,6 +113,7 @@ export function Quote({
       request.location ? `Location: ${request.location}` : "",
       `Interested in: ${request.interest}`,
       request.upgrades.length ? `Upgrades: ${request.upgrades.join(", ")}` : "",
+      request.looks.length ? `Lookbook: ${request.looks.join(", ")}` : "",
       request.message ? `Message: ${request.message}` : "",
     ]
       .filter(Boolean)
@@ -171,7 +181,7 @@ export function Quote({
             <Reveal>
               <div className="label flex items-center gap-3 text-ink/70">
                 <span className="size-1.5 shrink-0 bg-ink" aria-hidden="true" />
-                <span>06</span>
+                <span>07</span>
                 <span className="h-px w-8 bg-current" aria-hidden="true" />
                 <span>Get started</span>
               </div>
@@ -267,6 +277,44 @@ export function Quote({
               </p>
 
               <form className="mt-8" onSubmit={handleSubmit}>
+                {savedLooks.length > 0 && (
+                  <div className="mb-7 border border-acid/30 bg-acid/[0.06] p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex min-w-0 items-start gap-3">
+                        <BookmarkCheck
+                          className="mt-0.5 size-4 shrink-0 text-acid"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                        <div className="min-w-0">
+                          <p className="label text-acid">
+                            Your saved looks ·{" "}
+                            {String(savedLooks.length).padStart(2, "0")}
+                          </p>
+                          <p className="mt-2 text-[0.82rem] leading-relaxed text-paper/70">
+                            {savedLooks.map((item) => item.title).join(" · ")}
+                          </p>
+                          <p className="mt-2 text-[0.7rem] text-paper/50">
+                            We’ll include these in your enquiry.
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={onClearLooks}
+                        aria-label="Clear saved looks"
+                        className="grid size-8 shrink-0 place-items-center border border-white/20 text-paper/60 transition-colors hover:border-acid hover:text-acid"
+                      >
+                        <Trash2
+                          className="size-3.5"
+                          strokeWidth={1.5}
+                          aria-hidden="true"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="label text-paper/65">
@@ -335,12 +383,14 @@ export function Quote({
                     onChange={(event) => onInterestChange(event.target.value)}
                     className="field mt-1"
                   >
-                    <option value="Not sure yet">Not sure yet</option>
-                    <option value="Affordable Bungalows">Affordable Bungalows</option>
-                    <option value="Modern Homes">Modern Homes</option>
-                    <option value="Both / comparing options">
-                      Both / comparing options
-                    </option>
+                    {INTEREST_OPTIONS.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    {!INTEREST_OPTIONS.includes(interest) && (
+                      <option value={interest}>{interest}</option>
+                    )}
                   </select>
                 </div>
 

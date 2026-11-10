@@ -3,6 +3,7 @@ import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Designs } from "./components/Designs";
+import { Showcase } from "./components/Showcase";
 import { Upgrades } from "./components/Upgrades";
 import { Principles } from "./components/Principles";
 import { Process } from "./components/Process";
@@ -13,6 +14,7 @@ import { initLenis, scrollToId } from "./lib/lenis";
 
 export default function App() {
   const [selectedUpgrades, setSelectedUpgrades] = useState<string[]>([]);
+  const [savedLooks, setSavedLooks] = useState<string[]>([]);
   const [interest, setInterest] = useState("Not sure yet");
 
   useEffect(() => {
@@ -45,6 +47,16 @@ export default function App() {
     );
   }, []);
 
+  const toggleLook = useCallback((id: string) => {
+    setSavedLooks((current) =>
+      current.includes(id)
+        ? current.filter((look) => look !== id)
+        : [...current, id],
+    );
+  }, []);
+
+  const clearLooks = useCallback(() => setSavedLooks([]), []);
+
   return (
     <>
       <a
@@ -67,12 +79,20 @@ export default function App() {
         <Hero />
         <About />
         <Designs onEnquire={setInterest} />
+        <Showcase
+          saved={savedLooks}
+          onToggleSave={toggleLook}
+          onClearSaved={clearLooks}
+          onEnquire={setInterest}
+        />
         <Upgrades selected={selectedUpgrades} onToggle={toggleUpgrade} />
         <Principles />
         <Process />
         <Quote
           selected={selectedUpgrades}
           onToggle={toggleUpgrade}
+          looks={savedLooks}
+          onClearLooks={clearLooks}
           interest={interest}
           onInterestChange={setInterest}
         />

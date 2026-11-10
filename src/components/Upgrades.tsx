@@ -25,7 +25,7 @@ export function Upgrades({ selected, onToggle }: UpgradesProps) {
     <section id="upgrades" className="bg-bone py-24 text-ink lg:py-32">
       <div className="container-x">
         <SectionIntro
-          index="03"
+          index="04"
           eyebrow="Make it yours"
           title={
             <>
